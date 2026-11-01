@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import ProjectGallery from '../components/ProjectGallery.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import ContactForm from '../components/ContactForm.astro';
+import CTASection from '../components/CTASection.astro';
+import { businessConfig } from '../config/business';
+import { MapPin, Phone, Mail, Clock, MessageSquare, ArrowRight, ShieldCheck } from 'lucide-astro';
+
+const isPhoneVerified = businessConfig.verification.isPhoneVerified && !!businessConfig.contact.phone;
+const isEmailVerified = businessConfig.verification.isEmailVerified && !!businessConfig.contact.email;
+const isHoursVerified = businessConfig.verification.isHoursVerified && !!businessConfig.contact.hours;
+const isWhatsAppVerified = businessConfig.verification.isWhatsAppVerified && !!businessConfig.contact.whatsAppNumber;
+---
+
+<BaseLayout
+  title="Garage Doors Service Team Queens | Professional Garage Door Services"
+  description="Garage Doors Service Team Queens provides professional residential garage door repair, spring service, new installation, opener service, and maintenance in Queens, NY."
+  canonicalPath="/"
+>
+  <!-- Hero Banner -->
+  <Hero />
+
+  <!-- Services Section -->
+  <section class="py-16 md:py-24 bg-surface-light border-b border-border" id="services">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center space-y-3 mb-14">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-primary text-xs font-semibold">
+          <span>Service Solutions</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
+          Our Garage Door Services
+        </h2>
+        <p class="text-content-muted text-base">
+          Explore our garage door services and contact our team to discuss the right solution for your property.
+        </p>
+      </div>
+
+      <!-- Services 5-grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {businessConfig.services.map((service) => (
+          <ServiceCard
+            id={service.id}
+            title={service.title}
+            shortDesc={service.shortDesc}
+            image={service.image}
+            features={service.features}
+          />
+        ))}
+      </div>
+
+      <div class="mt-12 text-center">
+        <a href="/services" class="btn-secondary text-sm py-3 px-6">
+          View Detailed Service Breakdown
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <WhyChooseUs />
+
+  <!-- How It Works (4-Step Process) -->
+  <HowItWorks />
+
+  <!-- Project Gallery / Our Work Preview -->
+  <ProjectGallery showFilter={true} limit={6} />
+
+  <!-- Testimonials & Google Reviews -->
+  <TestimonialsSection />
+
+  <!-- FAQ Accordion -->
+  <FAQAccordion />
+
+  <!-- Direct Contact Section (2-Column) -->
+  <section class="py-16 md:py-24 bg-white border-b border-border" id="contact">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Left Column: Business & Inquiry Info -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="space-y-3">
+            <span class="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent font-semibold text-xs uppercase tracking-wider">
+              Get in Touch
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
+              Need Help With Your Garage Door?
+            </h2>
+            <p class="text-content-muted text-base leading-relaxed">
+              Contact our team to discuss your garage door symptoms, request an inspection, or explore new door installation options in Queens.
+            </p>
+          </div>
+
+          <!-- Contact Channels Card -->
+          <div class="p-6 rounded-2xl bg-surface-light border border-border space-y-4">
+            <div class="flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                <MapPin class="w-5 h-5" />
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-primary">Service Territory</h4>
+                <p class="text-xs sm:text-sm text-content-muted">
+                  Serving residential homeowners throughout Queens, New York.
+                </p>
+              </div>
+            </div>
+
+            {isPhoneVerified && (
+              <div class="flex items-start gap-3.5 pt-2 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                  <Phone class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">Phone</h4>
+                  <a href={`tel:${businessConfig.contact.phoneRaw || businessConfig.contact.phone}`} class="text-xs sm:text-sm text-accent font-semibold hover:underline">
+                    {businessConfig.contact.phone}
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {isEmailVerified && (
+              <div class="flex items-start gap-3.5 pt-2 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                  <Mail class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">Email</h4>
+                  <a href={`mailto:${businessConfig.contact.email}`} class="text-xs sm:text-sm text-content-dark hover:text-accent break-all">
+                    {businessConfig.contact.email}
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {isHoursVerified && (
+              <div class="flex items-start gap-3.5 pt-2 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                  <Clock class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">Business Hours</h4>
+                  <p class="text-xs sm:text-sm text-content-muted">
+                    {businessConfig.contact.hours}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {isWhatsAppVerified && (
+              <div class="flex items-start gap-3.5 pt-2 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-[#25D366] text-white flex items-center justify-center shrink-0">
+                  <MessageSquare class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">WhatsApp</h4>
+                  <a
+                    href={`https://wa.me/${businessConfig.contact.whatsAppNumber}?text=${encodeURIComponent(businessConfig.contact.whatsAppPrefillMessage)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs sm:text-sm text-green-600 font-semibold hover:underline"
+                  >
+                    Send a WhatsApp Message
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Convenient Booking Callout -->
+          <div class="p-5 rounded-2xl bg-accent-light border border-accent/20 flex items-center justify-between gap-4">
+            <div>
+              <h4 class="text-sm font-bold text-primary">Prefer to schedule directly?</h4>
+              <p class="text-xs text-content-muted">Choose your preferred date and time online.</p>
+            </div>
+            <a href="/book-service" class="btn-primary text-xs py-2 px-3.5 whitespace-nowrap">
+              Book Online
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Service Request Form -->
+        <div class="lg:col-span-7">
+          <ContactForm />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- High-Converting Bottom Banner -->
+  <CTASection />
+</BaseLayout>

@@ -1,0 +1,340 @@
+---
+import { MapPin, ZoomIn, Info } from 'lucide-astro';
+
+export interface ProjectItem {
+  id: string;
+  title: string;
+  category: string;
+  categoryLabel: string;
+  image: string;
+  description: string;
+  location: string;
+}
+
+const projects: ProjectItem[] = [
+  {
+    id: "proj-1",
+    title: "Carriage-Style Insulated Garage Door",
+    category: "installation",
+    categoryLabel: "Garage Door Installation",
+    image: "/images/work/work-1.webp",
+    description: "Design consultation and new carriage-style insulated door installation for a Queens residence.",
+    location: "Bayside, Queens NY"
+  },
+  {
+    id: "proj-2",
+    title: "Contemporary Charcoal Steel Door",
+    category: "installation",
+    categoryLabel: "Garage Door Installation",
+    image: "/images/work/work-2.webp",
+    description: "Modern flush-panel architectural door upgrade enhancing curb appeal and energy retention.",
+    location: "Forest Hills, Queens NY"
+  },
+  {
+    id: "proj-3",
+    title: "High-Cycle Torsion Spring Assessment",
+    category: "springs",
+    categoryLabel: "Garage Door Spring Service",
+    image: "/images/work/work-3.webp",
+    description: "Counterbalance evaluation and dual-torsion spring replacement for smooth, balanced lifting.",
+    location: "Astoria, Queens NY"
+  },
+  {
+    id: "proj-4",
+    title: "Smart Ultra-Quiet Belt Opener Setup",
+    category: "opener",
+    categoryLabel: "Garage Door Opener",
+    image: "/images/work/work-4.webp",
+    description: "Motorized smart opener unit installation with mobile app controls and battery backup.",
+    location: "Flushing, Queens NY"
+  },
+  {
+    id: "proj-5",
+    title: "Heavy-Duty Roller & Track Realignment",
+    category: "repair",
+    categoryLabel: "Garage Door Repair",
+    image: "/images/work/work-5.webp",
+    description: "Precision track realignment, bracket tightening, and nylon roller upgrade to eliminate grinding noise.",
+    location: "Long Island City, Queens NY"
+  },
+  {
+    id: "proj-6",
+    title: "Full Multi-Point Seasonal Maintenance",
+    category: "maintenance",
+    categoryLabel: "Garage Door Maintenance",
+    image: "/images/work/work-6.webp",
+    description: "Complete lubrication, safety sensor testing, weatherstrip renewal, and mechanical tune-up.",
+    location: "Jamaica, Queens NY"
+  }
+];
+
+interface Props {
+  showFilter?: boolean;
+  limit?: number;
+}
+
+const { showFilter = true, limit } = Astro.props;
+const displayProjects = limit ? projects.slice(0, limit) : projects;
+---
+
+<section class="py-16 md:py-24 bg-surface-light border-b border-border" id="our-work">
+  <div class="container-custom">
+    
+    <!-- Section Header -->
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-primary text-xs font-semibold">
+        <span>Portfolio Preview</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
+        Our Recent Garage Door Work
+      </h2>
+      <p class="text-content-muted text-base">
+        Explore representative project examples across residential repairs, installations, spring replacements, and opener systems in Queens.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    {showFilter && (
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="gallery-filters" role="tablist">
+        <button
+          type="button"
+          data-filter="all"
+          class="filter-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-primary text-white shadow-sm"
+        >
+          All Projects
+        </button>
+        <button
+          type="button"
+          data-filter="repair"
+          class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all bg-white text-content-dark hover:bg-gray-100 border border-border"
+        >
+          Garage Door Repair
+        </button>
+        <button
+          type="button"
+          data-filter="springs"
+          class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all bg-white text-content-dark hover:bg-gray-100 border border-border"
+        >
+          Spring Service
+        </button>
+        <button
+          type="button"
+          data-filter="installation"
+          class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all bg-white text-content-dark hover:bg-gray-100 border border-border"
+        >
+          Installation
+        </button>
+        <button
+          type="button"
+          data-filter="opener"
+          class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all bg-white text-content-dark hover:bg-gray-100 border border-border"
+        >
+          Garage Door Opener
+        </button>
+        <button
+          type="button"
+          data-filter="maintenance"
+          class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all bg-white text-content-dark hover:bg-gray-100 border border-border"
+        >
+          Maintenance
+        </button>
+      </div>
+    )}
+
+    <!-- Project Gallery Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+      {displayProjects.map((project) => (
+        <div
+          class="gallery-item card-premium overflow-hidden group cursor-pointer"
+          data-category={project.category}
+          data-image={project.image}
+          data-title={project.title}
+          data-category-label={project.categoryLabel}
+          data-desc={project.description}
+          data-location={project.location}
+          tabindex="0"
+          role="button"
+          aria-label={`View ${project.title}`}
+        >
+          <div class="relative h-60 overflow-hidden bg-gray-200">
+            <img
+              src={project.image}
+              alt={project.title}
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 text-primary text-xs font-semibold shadow-md">
+                <ZoomIn class="w-3.5 h-3.5 text-accent" />
+                <span>Enlarge Photo</span>
+              </span>
+            </div>
+            <div class="absolute top-3 left-3">
+              <span class="px-2.5 py-1 rounded bg-primary/90 text-white text-xs font-medium">
+                {project.categoryLabel}
+              </span>
+            </div>
+          </div>
+
+          <div class="p-5 space-y-2">
+            <h3 class="text-base font-bold text-primary group-hover:text-accent transition-colors">
+              {project.title}
+            </h3>
+            <p class="text-xs text-content-muted leading-relaxed line-clamp-2">
+              {project.description}
+            </p>
+            <div class="pt-2 flex items-center gap-1.5 text-xs text-accent font-medium">
+              <MapPin class="w-3.5 h-3.5 shrink-0" />
+              <span>{project.location}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Administrative Stock Photo Placeholder Disclaimer -->
+    <div class="mt-10 p-4 rounded-xl bg-white border border-border/80 flex items-start gap-3 text-xs text-content-muted max-w-3xl mx-auto">
+      <Info class="w-4 h-4 text-accent shrink-0 mt-0.5" />
+      <div>
+        <p class="font-medium text-primary">Representative Gallery Notice:</p>
+        <p>
+          Images shown in this development showcase represent service types and visual standards. Genuine client project photographs from the Queens area will replace these design placeholders as completed jobs are documented.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div
+  id="project-lightbox"
+  class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-6"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Project Preview Lightbox"
+>
+  <div class="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+    <!-- Close button -->
+    <button
+      type="button"
+      id="lightbox-close"
+      class="absolute top-3 right-3 z-20 w-10 h-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+      aria-label="Close Lightbox"
+    >
+      <span class="text-2xl font-bold">&times;</span>
+    </button>
+
+    <!-- Modal Image -->
+    <div class="relative bg-black flex items-center justify-center max-h-[60vh] overflow-hidden">
+      <img
+        id="lightbox-img"
+        src=""
+        alt=""
+        class="w-full h-auto max-h-[60vh] object-contain"
+      />
+    </div>
+
+    <!-- Modal Caption / Info -->
+    <div class="p-6 bg-white space-y-2 border-t border-border">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span id="lightbox-badge" class="px-2.5 py-1 rounded bg-accent/15 text-accent text-xs font-semibold"></span>
+        <span id="lightbox-location" class="text-xs text-content-muted flex items-center gap-1"></span>
+      </div>
+      <h3 id="lightbox-title" class="text-xl font-bold text-primary"></h3>
+      <p id="lightbox-desc" class="text-sm text-content-muted"></p>
+      
+      <div class="pt-3 flex justify-end">
+        <a href="/contact" class="btn-primary text-xs py-2 px-4">
+          Request Similar Service
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Filter Functionality
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'bg-primary', 'text-white');
+        b.classList.add('bg-white', 'text-content-dark', 'border');
+      });
+      btn.classList.add('active', 'bg-primary', 'text-white');
+      btn.classList.remove('bg-white', 'text-content-dark');
+
+      galleryItems.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          (item as HTMLElement).style.display = 'flex';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Lightbox Functionality
+  const lightbox = document.getElementById('project-lightbox');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxBadge = document.getElementById('lightbox-badge');
+  const lightboxLocation = document.getElementById('lightbox-location');
+  const lightboxDesc = document.getElementById('lightbox-desc');
+
+  galleryItems.forEach(item => {
+    const openLightbox = () => {
+      const src = item.getAttribute('data-image') || '';
+      const title = item.getAttribute('data-title') || '';
+      const cat = item.getAttribute('data-category-label') || '';
+      const loc = item.getAttribute('data-location') || '';
+      const desc = item.getAttribute('data-desc') || '';
+
+      if (lightbox && lightboxImg && lightboxTitle && lightboxBadge && lightboxLocation && lightboxDesc) {
+        lightboxImg.src = src;
+        lightboxImg.alt = title;
+        lightboxTitle.textContent = title;
+        lightboxBadge.textContent = cat;
+        lightboxLocation.textContent = loc;
+        lightboxDesc.textContent = desc;
+        lightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    };
+
+    item.addEventListener('click', openLightbox);
+    item.addEventListener('keydown', (e: any) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox();
+      }
+    });
+  });
+
+  const closeLightbox = () => {
+    if (lightbox) {
+      lightbox.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  };
+
+  lightboxClose?.addEventListener('click', closeLightbox);
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+      closeLightbox();
+    }
+  });
+</script>

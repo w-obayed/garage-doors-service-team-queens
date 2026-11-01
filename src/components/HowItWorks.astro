@@ -1,0 +1,93 @@
+---
+import { MessageSquare, HelpCircle, FileCheck, CalendarCheck, ArrowRight } from 'lucide-astro';
+
+const steps = [
+  {
+    step: "01",
+    icon: MessageSquare,
+    title: "Contact the Team",
+    description: "Call, message through WhatsApp, or submit an online service request."
+  },
+  {
+    step: "02",
+    icon: HelpCircle,
+    title: "Explain Your Issue",
+    description: "Tell us what is happening with your garage door, unusual noises, or installation goals."
+  },
+  {
+    step: "03",
+    icon: FileCheck,
+    title: "Discuss Service Options",
+    description: "The team reviews your enquiry and discusses the next steps and available solutions."
+  },
+  {
+    step: "04",
+    icon: CalendarCheck,
+    title: "Schedule Your Service",
+    description: "Arrange a suitable appointment with the company for your Queens home."
+  }
+];
+---
+
+<section class="py-16 md:py-24 bg-white border-b border-border">
+  <div class="container-custom">
+    
+    <!-- Section Heading -->
+    <div class="max-w-3xl mx-auto text-center space-y-3 mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-primary text-xs font-semibold">
+        <span>Simple Process</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">
+        How It Works
+      </h2>
+      <p class="text-content-muted text-base">
+        A clear, hassle-free four-step journey to resolve your garage door needs in Queens.
+      </p>
+    </div>
+
+    <!-- Steps Grid / Timeline -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+      
+      {steps.map((item, index) => {
+        const Icon = item.icon;
+        return (
+          <div class="relative flex flex-col items-start bg-surface-light p-6 rounded-2xl border border-border group hover:border-accent/40 transition-all duration-300">
+            
+            <!-- Step badge & Icon -->
+            <div class="flex items-center justify-between w-full mb-6">
+              <span class="text-3xl font-extrabold text-accent/40 group-hover:text-accent transition-colors font-heading">
+                {item.step}
+              </span>
+              <div class="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center shadow-subtle group-hover:bg-secondary transition-colors">
+                <Icon class="w-6 h-6 text-accent" />
+              </div>
+            </div>
+
+            <!-- Content -->
+            <h3 class="text-lg font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+              {item.title}
+            </h3>
+            <p class="text-sm text-content-muted leading-relaxed">
+              {item.description}
+            </p>
+
+            {index < steps.length - 1 && (
+              <div class="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 z-10 text-gray-300">
+                <ArrowRight class="w-5 h-5 text-accent/60" />
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+    </div>
+
+    <!-- Bottom CTA Bar -->
+    <div class="mt-12 text-center">
+      <a href="/book-service" class="btn-primary">
+        Schedule Your Service Today
+      </a>
+    </div>
+
+  </div>
+</section>

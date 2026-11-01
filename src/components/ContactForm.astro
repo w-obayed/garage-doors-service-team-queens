@@ -1,0 +1,363 @@
+---
+import { businessConfig } from '../config/business';
+import { integrationsConfig } from '../config/integrations';
+import { Send, UploadCloud, AlertCircle, CheckCircle2, ShieldCheck } from 'lucide-astro';
+
+interface Props {
+  preselectedService?: string;
+}
+
+const { preselectedService = "" } = Astro.props;
+---
+
+<div class="card-premium p-6 sm:p-8 bg-white border border-border shadow-elevated rounded-2xl relative" id="contact-form-container">
+  
+  <div class="mb-6 space-y-1.5 border-b border-border pb-4">
+    <h3 class="text-xl sm:text-2xl font-bold text-primary">
+      Submit a Service Request
+    </h3>
+    <p class="text-xs sm:text-sm text-content-muted">
+      Fill out the details below. Our team in Queens will review your inquiry and follow up promptly.
+    </p>
+  </div>
+
+  <form id="garage-contact-form" class="space-y-4" novalidate>
+    <!-- Honeypot anti-spam field (hidden from humans) -->
+    <div class="hidden" aria-hidden="true">
+      <label for="company_fax_hp">Leave this empty</label>
+      <input type="text" id="company_fax_hp" name="company_fax_hp" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- Full Name & Phone -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="fullName" class="block text-xs font-semibold text-content-dark mb-1">
+          Full Name <span class="text-accent">*</span>
+        </label>
+        <input
+          type="text"
+          id="fullName"
+          name="fullName"
+          required
+          placeholder="e.g. Michael Smith"
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface-light text-sm text-content-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+        />
+        <p class="error-msg hidden text-xs text-red-500 mt-1" id="err-fullName">Please enter your full name.</p>
+      </div>
+
+      <div>
+        <label for="phone" class="block text-xs font-semibold text-content-dark mb-1">
+          Phone Number <span class="text-accent">*</span>
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          required
+          placeholder="e.g. (718) 555-0123"
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface-light text-sm text-content-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+        />
+        <p class="error-msg hidden text-xs text-red-500 mt-1" id="err-phone">Please enter a valid phone number.</p>
+      </div>
+    </div>
+
+    <!-- Email & ZIP Code -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="email" class="block text-xs font-semibold text-content-dark mb-1">
+          Email Address <span class="text-accent">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="e.g. michael@example.com"
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface-light text-sm text-content-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+        />
+        <p class="error-msg hidden text-xs text-red-500 mt-1" id="err-email">Please enter a valid email address.</p>
+      </div>
+
+      <div>
+        <label for="zipCode" class="block text-xs font-semibold text-content-dark mb-1">
+          Queens ZIP Code <span class="text-accent">*</span>
+        </label>
+        <input
+          type="text"
+          id="zipCode"
+          name="zipCode"
+          required
+          maxlength="5"
+          placeholder="e.g. 11375"
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface-light text-sm text-content-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+        />
+        <p class="error-msg hidden text-xs text-red-500 mt-1" id="err-zipCode">Please provide a 5-digit ZIP code.</p>
+      </div>
+    </div>
+
+    <!-- Service Needed & Preferred Date -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label for="serviceNeeded" class="block text-xs font-semibold text-content-dark mb-1">
+          Service Needed <span class="text-accent">*</span>
+        </label>
+        <select
+          id="serviceNeeded"
+          name="serviceNeeded"
+          required
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface-light text-sm text-content-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+        >
+          <option value="">Select a service category</option>
+          {businessConfig.services.map((svc) => (
+            <option value={svc.id} selected={svc.id === preselectedService}>
+              {svc.title}
+            </option>
+          ))}
+          <option value="other">Other Garage Door Inquiry</option>
+        </select>
+        <p class="error-msg hidden text-xs text-red-500 mt-1" id="err-serviceNeeded">Please select a service category.</p>
+      </div>
+
+      <div>
+        <label for="preferredDate" class="block text-xs font-semibold text-content-dark mb-1">
+          Preferred Appointment Date
+        </label>
+        <input
+          type="date"
+          id="preferredDate"
+          name="preferredDate"
+          min={new Date().toISOString().split('T')[0]}
+          class="w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface-light text-sm text-content-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+        />
+      </div>
+    </div>
+
+    <!-- Description of Garage Door Issue -->
+    <div>
+      <label for="issueDescription" class="block text-xs font-semibold text-content-dark mb-1">
+        Description of Garage Door Issue <span class="text-accent">*</span>
+      </label>
+      <textarea
+        id="issueDescription"
+        name="issueDescription"
+        rows="3"
+        required
+        placeholder="Please describe symptoms: e.g. door won't close, grinding sound, snapped cable or spring, remote unresponsive..."
+        class="w-full px-3.5 py-2.5 rounded-lg border border-border bg-surface-light text-sm text-content-dark focus:bg-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+      ></textarea>
+      <p class="error-msg hidden text-xs text-red-500 mt-1" id="err-issueDescription">Please describe what is happening with your garage door.</p>
+    </div>
+
+    <!-- Optional Photo Upload -->
+    <div>
+      <label class="block text-xs font-semibold text-content-dark mb-1">
+        Optional Photo of Your Garage Door or Issue
+      </label>
+      <div class="mt-1 flex justify-center px-4 pt-4 pb-4 border-2 border-border border-dashed rounded-lg hover:border-accent/50 transition-colors bg-surface-light/60">
+        <div class="space-y-1 text-center">
+          <UploadCloud class="mx-auto h-7 w-7 text-accent" />
+          <div class="flex text-xs text-content-muted">
+            <label for="photoUpload" class="relative cursor-pointer rounded-md font-medium text-accent hover:text-accent-hover focus-within:outline-none">
+              <span>Upload an image</span>
+              <input id="photoUpload" name="photoUpload" type="file" accept="image/*" class="sr-only" />
+            </label>
+            <p class="pl-1">or drag and drop</p>
+          </div>
+          <p class="text-[11px] text-gray-400">PNG, JPG, WEBP up to 5MB</p>
+          <p id="file-name-preview" class="text-xs font-medium text-primary hidden"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consent Checkbox -->
+    <div class="pt-1">
+      <label class="flex items-start gap-2.5 cursor-pointer">
+        <input
+          type="checkbox"
+          id="consentCheckbox"
+          name="consentCheckbox"
+          required
+          class="mt-1 h-4 w-4 rounded border-border text-accent focus:ring-accent"
+        />
+        <span class="text-xs text-content-muted leading-relaxed">
+          I agree to be contacted by Garage Doors Service Team Queens regarding my service request via phone, email, or SMS. You may opt out anytime. View our <a href="/privacy-policy" class="text-accent underline">Privacy Policy</a>.
+        </span>
+      </label>
+      <p class="error-msg hidden text-xs text-red-500 mt-1" id="err-consentCheckbox">You must consent to be contacted about your request.</p>
+    </div>
+
+    <!-- Form Response Alerts -->
+    <div id="form-feedback" class="hidden rounded-lg p-4 text-sm" role="alert"></div>
+
+    <!-- Submit Button -->
+    <div class="pt-2">
+      <button
+        type="submit"
+        id="submit-btn"
+        class="btn-primary w-full py-3.5 text-base flex items-center justify-center gap-2 group"
+      >
+        <span class="btn-text">Submit Service Request</span>
+        <Send class="w-4 h-4 transition-transform group-hover:translate-x-1 btn-icon" />
+        <span class="spinner hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+      </button>
+    </div>
+
+    <div class="flex items-center justify-center gap-1.5 text-[11px] text-content-muted pt-1">
+      <ShieldCheck class="w-3.5 h-3.5 text-accent" />
+      <span>Your information is protected and used only to respond to your service inquiry.</span>
+    </div>
+
+  </form>
+</div>
+
+<script define:vars={{ ghlWebhookUrl: integrationsConfig.ghl.webhookUrl }}>
+  const form = document.getElementById('garage-contact-form');
+  const fileInput = document.getElementById('photoUpload');
+  const filePreview = document.getElementById('file-name-preview');
+  const feedback = document.getElementById('form-feedback');
+  const submitBtn = document.getElementById('submit-btn');
+  const btnText = submitBtn?.querySelector('.btn-text');
+  const btnIcon = submitBtn?.querySelector('.btn-icon');
+  const spinner = submitBtn?.querySelector('.spinner');
+
+  if (fileInput && filePreview) {
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files && fileInput.files[0]) {
+        filePreview.textContent = `Selected: ${fileInput.files[0].name} (${(fileInput.files[0].size / 1024).toFixed(0)} KB)`;
+        filePreview.classList.remove('hidden');
+      } else {
+        filePreview.classList.add('hidden');
+      }
+    });
+  }
+
+  function validateField(id, condition) {
+    const field = document.getElementById(id);
+    const err = document.getElementById(`err-${id}`);
+    if (!condition) {
+      field?.classList.add('border-red-500');
+      err?.classList.remove('hidden');
+      return false;
+    } else {
+      field?.classList.remove('border-red-500');
+      err?.classList.add('hidden');
+      return true;
+    }
+  }
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Honeypot check
+      const hp = (document.getElementById('company_fax_hp') as HTMLInputElement)?.value;
+      if (hp) {
+        return; // Bot detected, silent abort
+      }
+
+      // Values
+      const fullName = (document.getElementById('fullName') as HTMLInputElement)?.value.trim();
+      const phone = (document.getElementById('phone') as HTMLInputElement)?.value.trim();
+      const email = (document.getElementById('email') as HTMLInputElement)?.value.trim();
+      const zipCode = (document.getElementById('zipCode') as HTMLInputElement)?.value.trim();
+      const serviceNeeded = (document.getElementById('serviceNeeded') as HTMLSelectElement)?.value;
+      const preferredDate = (document.getElementById('preferredDate') as HTMLInputElement)?.value;
+      const issueDescription = (document.getElementById('issueDescription') as HTMLTextAreaElement)?.value.trim();
+      const consent = (document.getElementById('consentCheckbox') as HTMLInputElement)?.checked;
+
+      // Validation
+      const isNameValid = validateField('fullName', fullName.length >= 2);
+      const isPhoneValid = validateField('phone', /^[0-9+()\-.\s]{7,20}$/.test(phone));
+      const isEmailValid = validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+      const isZipValid = validateField('zipCode', /^\d{5}$/.test(zipCode));
+      const isServiceValid = validateField('serviceNeeded', serviceNeeded.length > 0);
+      const isDescValid = validateField('issueDescription', issueDescription.length >= 5);
+      const isConsentValid = validateField('consentCheckbox', consent);
+
+      if (!isNameValid || !isPhoneValid || !isEmailValid || !isZipValid || !isServiceValid || !isDescValid || !isConsentValid) {
+        if (feedback) {
+          feedback.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-800 flex items-start gap-2.5';
+          feedback.innerHTML = `
+            <strong>Notice:</strong> Please correct the highlighted errors in the form before submitting.
+          `;
+          feedback.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // Loading state
+      submitBtn?.setAttribute('disabled', 'true');
+      btnText?.classList.add('opacity-50');
+      btnIcon?.classList.add('hidden');
+      spinner?.classList.remove('hidden');
+      feedback?.classList.add('hidden');
+
+      const payload = {
+        fullName,
+        phone,
+        email,
+        zipCode,
+        serviceNeeded,
+        preferredDate,
+        issueDescription,
+        source: 'Website Contact Form',
+        submittedAt: new Date().toISOString()
+      };
+
+      try {
+        if (ghlWebhookUrl && ghlWebhookUrl.startsWith('http')) {
+          // Live GHL Webhook POST
+          const response = await fetch(ghlWebhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            throw new Error(`Submission server returned status ${response.status}`);
+          }
+        } else {
+          // Dev / Preview simulation with genuine notice
+          console.info('GHL Webhook is pending configuration in src/config/integrations.js. Form payload stored locally:', payload);
+          // Store preview record locally for testing
+          const localRequests = JSON.parse(localStorage.getItem('preview_service_requests') || '[]');
+          localRequests.push(payload);
+          localStorage.setItem('preview_service_requests', JSON.stringify(localRequests));
+        }
+
+        // Genuine confirmation
+        if (feedback) {
+          feedback.className = 'rounded-lg p-4 text-sm bg-green-50 border border-green-200 text-green-800 space-y-2';
+          feedback.innerHTML = `
+            <div class="flex items-center gap-2 font-bold text-base">
+              <span>Service Request Received</span>
+            </div>
+            <p>Thank you, <strong>${fullName}</strong>. Your inquiry regarding <strong>${serviceNeeded}</strong> in Queens has been recorded. Our team will review the details and reach out shortly.</p>
+          `;
+          feedback.classList.remove('hidden');
+        }
+        form.reset();
+        filePreview?.classList.add('hidden');
+
+      } catch (err) {
+        console.error('Form submission failed:', err);
+        if (feedback) {
+          feedback.className = 'rounded-lg p-4 text-sm bg-red-50 border border-red-200 text-red-800 space-y-1';
+          feedback.innerHTML = `
+            <div class="font-bold">Submission Notice</div>
+            <p>We encountered an issue submitting your request directly. Please try again in a moment, or reach out to us directly through WhatsApp or by phone.</p>
+          `;
+          feedback.classList.remove('hidden');
+        }
+      } finally {
+        submitBtn?.removeAttribute('disabled');
+        btnText?.classList.remove('opacity-50');
+        btnIcon?.classList.remove('hidden');
+        spinner?.classList.add('hidden');
+      }
+    });
+  }
+</script>

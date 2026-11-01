@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import { businessConfig } from '../config/business';
+import { MapPin, Phone, Mail, Clock, MessageSquare, ShieldCheck, Calendar } from 'lucide-astro';
+
+const isPhoneVerified = businessConfig.verification.isPhoneVerified && !!businessConfig.contact.phone;
+const isEmailVerified = businessConfig.verification.isEmailVerified && !!businessConfig.contact.email;
+const isHoursVerified = businessConfig.verification.isHoursVerified && !!businessConfig.contact.hours;
+const isWhatsAppVerified = businessConfig.verification.isWhatsAppVerified && !!businessConfig.contact.whatsAppNumber;
+
+// Read query params if any
+const url = Astro.url;
+const preselectedService = url.searchParams.get('service') || '';
+---
+
+<BaseLayout
+  title="Contact Us | Garage Doors Service Team Queens"
+  description="Contact Garage Doors Service Team Queens. Submit a service request for garage door repair, springs, installation, or opener service in Queens, NY."
+  canonicalPath="/contact"
+>
+  <!-- Page Header -->
+  <section class="bg-primary text-white py-14 sm:py-20 border-b border-navy-700">
+    <div class="container-custom max-w-4xl text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-700 text-accent text-xs font-semibold">
+        <Mail class="w-3.5 h-3.5" />
+        <span>Service Inquiries & Estimates</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
+        Contact Our Queens Team
+      </h1>
+      <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        Have questions or need assistance with your garage door? Submit an inquiry below and our local team will respond to discuss your service needs.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2-Column Contact Section -->
+  <section class="py-16 md:py-24 bg-white border-b border-border">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Left Column: Business Info -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="space-y-3">
+            <span class="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent font-semibold text-xs uppercase tracking-wider">
+              Local Assistance
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-primary">
+              Need Help With Your Garage Door?
+            </h2>
+            <p class="text-content-muted text-sm sm:text-base leading-relaxed">
+              We respond promptly to homeowner inquiries throughout Queens. Provide details on what your garage door is experiencing, and we will follow up with relevant service options.
+            </p>
+          </div>
+
+          <!-- Verified Info Card -->
+          <div class="p-6 rounded-2xl bg-surface-light border border-border space-y-5">
+            <div class="flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                <MapPin class="w-5 h-5" />
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-primary">Service Coverage</h4>
+                <p class="text-xs sm:text-sm text-content-muted">
+                  Queens, New York, USA & Surrounding Neighborhoods
+                </p>
+              </div>
+            </div>
+
+            {isPhoneVerified && (
+              <div class="flex items-start gap-3.5 pt-3 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                  <Phone class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">Phone</h4>
+                  <a href={`tel:${businessConfig.contact.phoneRaw || businessConfig.contact.phone}`} class="text-xs sm:text-sm text-accent font-semibold hover:underline">
+                    {businessConfig.contact.phone}
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {isEmailVerified && (
+              <div class="flex items-start gap-3.5 pt-3 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                  <Mail class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">Email</h4>
+                  <a href={`mailto:${businessConfig.contact.email}`} class="text-xs sm:text-sm text-content-dark hover:text-accent break-all">
+                    {businessConfig.contact.email}
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {isHoursVerified && (
+              <div class="flex items-start gap-3.5 pt-3 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center shrink-0">
+                  <Clock class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">Service Hours</h4>
+                  <p class="text-xs sm:text-sm text-content-muted">
+                    {businessConfig.contact.hours}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {isWhatsAppVerified && (
+              <div class="flex items-start gap-3.5 pt-3 border-t border-border">
+                <div class="w-10 h-10 rounded-lg bg-[#25D366] text-white flex items-center justify-center shrink-0">
+                  <MessageSquare class="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-primary">WhatsApp</h4>
+                  <a
+                    href={`https://wa.me/${businessConfig.contact.whatsAppNumber}?text=${encodeURIComponent(businessConfig.contact.whatsAppPrefillMessage)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-xs sm:text-sm text-green-600 font-semibold hover:underline"
+                  >
+                    Chat With Us on WhatsApp
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Direct Booking Link Card -->
+          <div class="p-6 rounded-2xl bg-secondary text-white space-y-3">
+            <div class="flex items-center gap-2 text-accent text-xs font-semibold">
+              <Calendar class="w-4 h-4" />
+              <span>Dedicated Booking Page</span>
+            </div>
+            <h3 class="text-lg font-bold text-white">Prefer to schedule directly?</h3>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Use our dedicated appointment request page to choose your preferred service day and window.
+            </p>
+            <div>
+              <a href="/book-service" class="btn-primary text-xs py-2 px-4 shadow-none">
+                Go to Booking Page
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Form -->
+        <div class="lg:col-span-7">
+          <ContactForm preselectedService={preselectedService} />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQAccordion />
+</BaseLayout>

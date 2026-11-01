@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #202A35;
+    background-color: #FFFFFF;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    color: #14243A;
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center font-medium px-6 py-3.5 rounded-lg bg-accent text-white hover:bg-accent-hover transition-all duration-200 shadow-glow-accent hover:shadow-lg active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center font-medium px-6 py-3.5 rounded-lg bg-secondary text-white hover:bg-primary transition-all duration-200 shadow-subtle hover:shadow-card active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center font-medium px-6 py-3.5 rounded-lg border-2 border-secondary text-secondary hover:bg-secondary hover:text-white transition-all duration-200 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card-premium {
+    @apply bg-white rounded-xl border border-border/80 shadow-subtle hover:shadow-card transition-all duration-300;
+  }
+}
+
+/* Lightbox backdrop animation */
+.lightbox-modal {
+  transition: opacity 0.25s ease-in-out;
+}

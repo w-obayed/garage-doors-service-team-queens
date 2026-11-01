@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/CTASection.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import { businessConfig } from '../config/business';
+import { Wrench, CheckCircle2, ArrowRight, ShieldCheck, MapPin } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="Our Garage Door Services | Garage Doors Service Team Queens"
+  description="Explore comprehensive garage door services in Queens, NY: repair, spring replacement, new door installation, opener service, and routine maintenance."
+  canonicalPath="/services"
+>
+  <!-- Page Header -->
+  <section class="bg-primary text-white py-14 sm:py-20 border-b border-navy-700">
+    <div class="container-custom max-w-4xl text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-700 text-accent text-xs font-semibold">
+        <Wrench class="w-3.5 h-3.5" />
+        <span>Queens Residential Services</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
+        Our Garage Door Services
+      </h1>
+      <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        Explore our garage door services and contact our team to discuss the right solution for your property in Queens, New York.
+      </p>
+    </div>
+  </section>
+
+  <!-- Detailed Service Showcase -->
+  <section class="py-16 md:py-24 bg-white">
+    <div class="container-custom space-y-16 sm:space-y-24">
+      {businessConfig.services.map((service, index) => (
+        <div
+          id={service.id}
+          class={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center ${
+            index % 2 === 1 ? 'lg:grid-flow-dense' : ''
+          }`}
+        >
+          <!-- Image -->
+          <div class={`lg:col-span-6 ${index % 2 === 1 ? 'lg:col-start-7' : ''}`}>
+            <div class="relative rounded-2xl overflow-hidden border border-border shadow-elevated bg-gray-100 group">
+              <img
+                src={service.image}
+                alt={service.title}
+                class="w-full h-[320px] sm:h-[400px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/50 via-transparent to-transparent"></div>
+              <div class="absolute bottom-4 left-4">
+                <span class="px-3 py-1 rounded-md bg-accent text-white text-xs font-semibold">
+                  Queens Service Focus
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Details -->
+          <div class={`lg:col-span-6 space-y-6 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
+            <div class="space-y-3">
+              <span class="text-xs font-bold text-accent uppercase tracking-wider">
+                Service Category {index + 1}
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-primary">
+                {service.title}
+              </h2>
+              <p class="text-base text-content-muted leading-relaxed">
+                {service.fullDesc}
+              </p>
+            </div>
+
+            <!-- Features checklist -->
+            <div class="space-y-2.5 pt-2">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-primary">
+                Common Service Inclusions & Evaluations:
+              </h3>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm text-content-dark">
+                {service.features.map((feature) => (
+                  <li class="flex items-start gap-2">
+                    <CheckCircle2 class="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <!-- CTAs -->
+            <div class="pt-4 flex flex-wrap items-center gap-3">
+              <a
+                href={`/contact?service=${encodeURIComponent(service.id)}`}
+                class="btn-primary text-xs sm:text-sm py-2.5 px-5 flex items-center gap-2"
+              >
+                <span>Request {service.title}</span>
+                <ArrowRight class="w-4 h-4" />
+              </a>
+
+              <a
+                href="/book-service"
+                class="btn-outline text-xs sm:text-sm py-2.5 px-5"
+              >
+                Book Appointment
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Queens Service Area Coverage -->
+  <section class="py-16 bg-surface-light border-y border-border">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto text-center space-y-3 mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-primary text-xs font-semibold">
+          <MapPin class="w-3.5 h-3.5 text-accent" />
+          <span>Local Coverage</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-primary">
+          Serving Homeowners Throughout Queens
+        </h2>
+        <p class="text-sm text-content-muted">
+          We welcome service inquiries from residential properties across these Queens neighborhoods and nearby areas:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-w-4xl mx-auto text-xs sm:text-sm font-medium text-primary">
+        {businessConfig.neighborhoods.map((hood) => (
+          <div class="p-3 bg-white rounded-lg border border-border/80 flex items-center gap-2 shadow-subtle hover:border-accent/40 transition-colors">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent shrink-0"></span>
+            <span>{hood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQAccordion />
+
+  <!-- CTA Banner -->
+  <CTASection
+    title="Ready to Discuss Your Garage Door Service in Queens?"
+    subtitle="Submit your details online or request a convenient appointment with our local team."
+  />
+</BaseLayout>

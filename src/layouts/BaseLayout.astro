@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import ChatWidget from '../components/ChatWidget.astro';
+import { businessConfig } from '../config/business';
+import { integrationsConfig } from '../config/integrations';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+}
+
+const {
+  title = "Garage Doors Service Team Queens | Professional Garage Door Services in Queens, NY",
+  description = "Reliable residential garage door repair, spring service, new installation, opener service, and maintenance in Queens, New York. Contact our team to discuss your project.",
+  canonicalPath = ""
+} = Astro.props;
+
+const siteUrl = "https://garagedoorsserviceteamqueens.com";
+const canonicalUrl = `${siteUrl}${canonicalPath}`;
+
+// Structured data adhering strictly to verified details
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": businessConfig.name,
+  "description": description,
+  "url": siteUrl,
+  "areaServed": {
+    "@type": "AdministrativeArea",
+    "name": "Queens",
+    "addressRegion": "NY",
+    "addressCountry": "US"
+  },
+  ...(businessConfig.verification.isPhoneVerified && businessConfig.contact.phone ? { "telephone": businessConfig.contact.phone } : {}),
+  ...(businessConfig.verification.isEmailVerified && businessConfig.contact.email ? { "email": businessConfig.contact.email } : {}),
+  ...(businessConfig.verification.isAddressVerified && businessConfig.contact.address ? {
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Queens",
+      "addressRegion": "NY",
+      "addressCountry": "US"
+    }
+  } : {})
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}/images/hero/garage-hero.webp`} />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/images/hero/garage-hero.webp`} />
+    
+    <!-- Google Fonts: Poppins & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    {integrationsConfig.analytics.gaMeasurementId && (
+      <!-- Google Analytics placeholder -->
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${integrationsConfig.analytics.gaMeasurementId}`}></script>
+    )}
+  </head>
+  <body class="bg-surface-light text-content-dark font-sans flex flex-col min-h-screen selection:bg-accent selection:text-white antialiased">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 bg-accent text-white px-4 py-2 rounded-md shadow-lg">
+      Skip to main content
+    </a>
+
+    <!-- Sticky Navigation Header -->
+    <Header />
+
+    <!-- Main Content Slot -->
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Global Footer -->
+    <Footer />
+
+    <!-- Floating WhatsApp CTA Button -->
+    <WhatsAppButton />
+
+    <!-- GoHighLevel Live Chat Widget Integration -->
+    <ChatWidget />
+  </body>
+</html>

@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import CTASection from '../components/CTASection.astro';
+import { Star, MessageSquare, ExternalLink, ShieldCheck, Heart } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="Customer Reviews | Garage Doors Service Team Queens"
+  description="Read feedback from Queens homeowners and discover how Garage Doors Service Team Queens handles residential garage door repair, installations, and maintenance."
+  canonicalPath="/reviews"
+>
+  <!-- Page Header -->
+  <section class="bg-primary text-white py-14 sm:py-20 border-b border-navy-700">
+    <div class="container-custom max-w-4xl text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-700 text-accent text-xs font-semibold">
+        <Star class="w-3.5 h-3.5 fill-accent text-accent" />
+        <span>Authentic Feedback</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
+        What Our Customers Say
+      </h1>
+      <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        We value authentic customer experiences. Discover our feedback policy and how we serve residential clients throughout Queens, NY.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Reviews / Placeholder Section -->
+  <TestimonialsSection />
+
+  <!-- Review Integrity & Commitment Section -->
+  <section class="py-16 bg-surface-light border-b border-border">
+    <div class="container-custom max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        
+        <div class="card-premium p-6 sm:p-8 space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-10 h-10 rounded-lg bg-primary text-accent flex items-center justify-center">
+              <ShieldCheck class="w-5 h-5" />
+            </div>
+            <h3 class="text-xl font-bold text-primary">Our Review Integrity Policy</h3>
+            <p class="text-sm text-content-muted leading-relaxed">
+              We never fabricate customer reviews, testimonials, or star ratings. All testimonials published on our site correspond directly to verified customer interactions and official Google Business Profile feedback.
+            </p>
+          </div>
+          <div class="pt-2">
+            <span class="inline-flex items-center gap-2 text-xs font-semibold text-accent">
+              <span class="w-2 h-2 rounded-full bg-accent"></span>
+              100% Genuine Customer Feedback
+            </span>
+          </div>
+        </div>
+
+        <div class="card-premium p-6 sm:p-8 space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="w-10 h-10 rounded-lg bg-accent text-white flex items-center justify-center">
+              <Heart class="w-5 h-5" />
+            </div>
+            <h3 class="text-xl font-bold text-primary">Had Service Completed in Queens?</h3>
+            <p class="text-sm text-content-muted leading-relaxed">
+              If our team recently evaluated or serviced your garage door, we would love to hear about your experience. Your feedback helps us continue providing attentive local service.
+            </p>
+          </div>
+          <div class="pt-2">
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Garage+Doors+Service+Team+Queens"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary text-xs py-2.5 px-4 flex items-center justify-center gap-2"
+            >
+              <span>Leave a Review on Google</span>
+              <ExternalLink class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTASection
+    title="Experience Reliable Garage Door Service in Queens"
+    subtitle="Submit your inquiry online and let our team assist with your repair, opener, or door installation project."
+  />
+</BaseLayout>

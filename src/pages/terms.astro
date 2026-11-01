@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { businessConfig } from '../config/business';
+import { FileText } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="Terms and Conditions | Garage Doors Service Team Queens"
+  description="Terms and Conditions governing website usage, service requests, and appointment scheduling with Garage Doors Service Team Queens."
+  canonicalPath="/terms"
+>
+  <section class="bg-primary text-white py-14 sm:py-16 border-b border-navy-700">
+    <div class="container-custom max-w-4xl text-center space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-700 text-accent text-xs font-semibold">
+        <FileText class="w-3.5 h-3.5" />
+        <span>Terms of Service</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+        Terms and Conditions
+      </h1>
+      <p class="text-sm sm:text-base text-gray-300">
+        Effective Date: November 1, 2026 • Last Updated: November 1, 2026
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="container-custom max-w-3xl prose prose-slate prose-headings:font-heading prose-headings:text-primary space-y-8 text-sm sm:text-base text-content-dark leading-relaxed">
+      
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">1. Agreement to Terms</h2>
+        <p>
+          By accessing or using the website of Garage Doors Service Team Queens ("Company," "we," "us"), submitting service inquiries, or booking appointments, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please refrain from using the site.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">2. Service Inquiries and Appointment Scheduling</h2>
+        <p>
+          Submitting a request through our website or booking page constitutes an inquiry for service and does not create a binding service contract until availability, scope of work, and pricing are mutually confirmed by our team.
+        </p>
+        <p class="mt-2">
+          Appointment arrival windows are estimates subject to local traffic conditions, previous job complexities, and weather in Queens, New York. Our dispatch team will communicate any scheduling adjustments.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">3. Property Access and Safety Requirements</h2>
+        <p>
+          Homeowners must provide safe, unobstructed access to the garage door opening, tracks, electrical outlets, and opener mechanisms during service appointments. Pets and children must be kept safely away from the work area while garage door springs, cables, and mechanical components are under inspection or tension.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">4. Estimates, Scope of Work, and Payments</h2>
+        <p>
+          Any verbal or written estimates are based on the initial inspection and description of the issue. Should unforeseen damage, decayed framing, or hazardous mechanical defects be discovered during disassembly, our technician will discuss updated recommendations with you prior to performing additional work.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">5. Website Content and Intellectual Property</h2>
+        <p>
+          All website text, logos, graphics, and layout designs are the property of Garage Doors Service Team Queens or its licensors and are protected under copyright and trademark laws. Unauthorized reproduction or scraping is prohibited.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">6. Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by applicable New York law, Garage Doors Service Team Queens shall not be liable for indirect, incidental, or consequential damages resulting from website use or third-party service interruptions.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">7. Governing Law</h2>
+        <p>
+          These Terms and Conditions shall be governed by and construed in accordance with the laws of the State of New York, without regard to conflict of law principles. Any legal action arising from these terms shall be subject to the exclusive jurisdiction of the state or federal courts located in Queens County, New York.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-primary mb-3">8. Changes to These Terms</h2>
+        <p>
+          We reserve the right to modify these terms at any time. Changes will be posted to this page with an updated revision date.
+        </p>
+        <p class="mt-2">
+          Questions regarding these terms may be directed through our <a href="/contact" class="text-accent underline">Contact Form</a>.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

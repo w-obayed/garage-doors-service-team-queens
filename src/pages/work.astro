@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectGallery from '../components/ProjectGallery.astro';
+import CTASection from '../components/CTASection.astro';
+import { Camera, CheckCircle2 } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="Our Recent Garage Door Work | Garage Doors Service Team Queens"
+  description="View recent residential garage door repair, new door installation, torsion spring, and opener service projects in Queens, NY."
+  canonicalPath="/work"
+>
+  <!-- Page Header -->
+  <section class="bg-primary text-white py-14 sm:py-20 border-b border-navy-700">
+    <div class="container-custom max-w-4xl text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-700 text-accent text-xs font-semibold">
+        <Camera class="w-3.5 h-3.5" />
+        <span>Project Gallery</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
+        Our Recent Garage Door Work
+      </h1>
+      <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+        Browse project examples across residential repairs, carriage-house installations, spring replacements, and opener systems in Queens.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Project Gallery with Lightbox -->
+  <ProjectGallery showFilter={true} />
+
+  <!-- Quality Standards Section -->
+  <section class="py-16 bg-white border-b border-border">
+    <div class="container-custom max-w-4xl">
+      <div class="p-8 rounded-2xl bg-surface-light border border-border space-y-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-primary">
+          Our Approach to Every Garage Door Project
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-content-muted">
+          <div class="flex items-start gap-3">
+            <CheckCircle2 class="w-5 h-5 text-accent shrink-0 mt-0.5" />
+            <div>
+              <strong class="text-primary block">Thorough Assessment:</strong>
+              We evaluate springs, cables, tracks, rollers, and motors before recommending a repair or replacement.
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <CheckCircle2 class="w-5 h-5 text-accent shrink-0 mt-0.5" />
+            <div>
+              <strong class="text-primary block">Clean Workspaces:</strong>
+              Our technicians respect your property, keeping work areas tidy throughout the service visit.
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <CheckCircle2 class="w-5 h-5 text-accent shrink-0 mt-0.5" />
+            <div>
+              <strong class="text-primary block">Transparent Communication:</strong>
+              We discuss recommendations directly with you so you can make informed decisions.
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <CheckCircle2 class="w-5 h-5 text-accent shrink-0 mt-0.5" />
+            <div>
+              <strong class="text-primary block">Safety Testing:</strong>
+              We verify balance and safety auto-reverse operation before concluding any service call.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <CTASection
+    title="Have a Similar Garage Door Project in Mind?"
+    subtitle="Reach out to Garage Doors Service Team Queens to discuss your requirements and schedule an appointment."
+  />
+</BaseLayout>

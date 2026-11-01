@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 72" fill="none">
+  <!-- Garage Door Stylized Icon Badge -->
+  <rect x="2" y="6" width="60" height="60" rx="12" fill="#1D3557" />
+  <rect x="12" y="18" width="40" height="36" rx="4" fill="#14243A" stroke="#F28C28" stroke-width="2" />
+  <line x1="16" y1="27" x2="48" y2="27" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+  <line x1="16" y1="36" x2="48" y2="36" stroke="#F28C28" stroke-width="2" stroke-linecap="round" />
+  <line x1="16" y1="45" x2="48" y2="45" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+  <circle cx="32" cy="48" r="1.5" fill="#F28C28" />
+
+  <!-- Business Name Typography -->
+  <text x="76" y="32" font-family="'Poppins', 'Inter', sans-serif" font-weight="800" font-size="20" fill="#FFFFFF" letter-spacing="-0.02em">
+    GARAGE DOORS
+  </text>
+  <text x="76" y="52" font-family="'Poppins', 'Inter', sans-serif" font-weight="600" font-size="14" fill="#F28C28" letter-spacing="0.06em">
+    SERVICE TEAM QUEENS
+  </text>
+</svg>

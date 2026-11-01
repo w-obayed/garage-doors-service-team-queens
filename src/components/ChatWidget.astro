@@ -1,0 +1,206 @@
+---
+import { integrationsConfig } from '../config/integrations';
+import { MessageSquare, X, Send, Bot } from 'lucide-astro';
+
+const isGhlChatActive = integrationsConfig.ghl.isChatWidgetActive && !!integrationsConfig.ghl.chatWidgetEmbedScript;
+---
+
+{isGhlChatActive ? (
+  <!-- Real GHL Live Chat Widget Embed Injection -->
+  <Fragment set:html={integrationsConfig.ghl.chatWidgetEmbedScript} />
+) : (
+  <!-- GHL-Ready Live Chat Interface & Test Preview -->
+  <aside aria-label="Website live chat" class="fixed bottom-6 left-6 z-40 font-sans" id="preview-chat-widget-wrapper">
+    <!-- Chat Launcher Pill / Button -->
+    <button
+      type="button"
+      id="chat-toggle-btn"
+      class="group flex items-center gap-2.5 bg-primary text-white pl-4 pr-5 py-3 rounded-full shadow-2xl hover:bg-secondary transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-primary/40 border border-navy-700"
+      aria-expanded="false"
+      aria-controls="chat-dialog-panel"
+      aria-label="Open Live Chat with Garage Doors Service Team Queens"
+    >
+      <div class="relative">
+        <MessageSquare class="w-5 h-5 text-accent" />
+        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-accent rounded-full animate-ping"></span>
+        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-accent rounded-full"></span>
+      </div>
+      <div class="text-left text-xs">
+        <span class="block font-semibold">Live Chat</span>
+        <span class="block text-[10px] text-gray-300">Queens Service Team</span>
+      </div>
+    </button>
+
+    <!-- Chat Modal Window -->
+    <div
+      id="chat-dialog-panel"
+      class="hidden absolute bottom-16 left-0 w-[340px] sm:w-[380px] bg-white rounded-2xl shadow-2xl border border-border overflow-hidden flex flex-col transition-all duration-300"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Live Chat"
+    >
+      <!-- Chat Header -->
+      <div class="bg-primary text-white p-4 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-accent">
+            <Bot class="w-5 h-5" />
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white leading-tight">Garage Doors Service Team</h4>
+            <span class="text-[11px] text-green-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span> Online • Queens, NY
+            </span>
+          </div>
+        </div>
+        <button
+          type="button"
+          id="chat-close-btn"
+          class="text-gray-300 hover:text-white p-1 rounded-lg focus:outline-none focus:ring-1 focus:ring-white"
+          aria-label="Close chat window"
+        >
+          <X class="w-5 h-5" />
+        </button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="p-4 space-y-3 bg-surface-light h-72 overflow-y-auto text-xs" id="chat-messages-container">
+        <!-- System Greeting -->
+        <div class="flex items-start gap-2">
+          <div class="w-7 h-7 rounded-full bg-primary text-accent flex items-center justify-center shrink-0 text-xs font-bold">
+            G
+          </div>
+          <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-border shadow-subtle text-content-dark space-y-1 max-w-[85%]">
+            <p class="font-semibold text-primary">Garage Doors Service Team Queens</p>
+            <p>Hello! Welcome to Garage Doors Service Team Queens. How can we help you today?</p>
+          </div>
+        </div>
+
+        <!-- Quick Option Buttons -->
+        <div class="pl-9 space-y-1.5" id="chat-options-group">
+          <p class="text-[11px] text-content-muted font-medium mb-1">Select an inquiry type:</p>
+          <button type="button" class="chat-opt-btn block w-full text-left px-3 py-2 rounded-lg bg-white border border-border hover:border-accent hover:text-accent font-medium transition-colors" data-option="Garage Door Repair">
+            › Garage Door Repair
+          </button>
+          <button type="button" class="chat-opt-btn block w-full text-left px-3 py-2 rounded-lg bg-white border border-border hover:border-accent hover:text-accent font-medium transition-colors" data-option="New Installation">
+            › New Installation
+          </button>
+          <button type="button" class="chat-opt-btn block w-full text-left px-3 py-2 rounded-lg bg-white border border-border hover:border-accent hover:text-accent font-medium transition-colors" data-option="Garage Door Opener">
+            › Garage Door Opener
+          </button>
+          <button type="button" class="chat-opt-btn block w-full text-left px-3 py-2 rounded-lg bg-white border border-border hover:border-accent hover:text-accent font-medium transition-colors" data-option="General Question">
+            › General Question
+          </button>
+          <button type="button" class="chat-opt-btn block w-full text-left px-3 py-2 rounded-lg bg-accent text-white hover:bg-accent-hover font-semibold transition-colors" data-option="Request an Appointment">
+            › Request an Appointment
+          </button>
+        </div>
+      </div>
+
+      <!-- Message Input Form -->
+      <form id="chat-input-form" class="p-3 bg-white border-t border-border flex items-center gap-2">
+        <input
+          type="text"
+          id="chat-user-input"
+          placeholder="Type your message..."
+          class="flex-grow px-3 py-2 text-xs rounded-lg border border-border bg-surface-light focus:bg-white focus:outline-none focus:ring-1 focus:ring-accent"
+        />
+        <button
+          type="submit"
+          class="w-9 h-9 rounded-lg bg-accent text-white flex items-center justify-center hover:bg-accent-hover transition-colors shrink-0"
+          aria-label="Send message"
+        >
+          <Send class="w-4 h-4" />
+        </button>
+      </form>
+
+      <!-- GHL Note for Admin -->
+      <div class="px-3 py-1.5 bg-gray-50 border-t border-gray-100 text-[10px] text-content-muted flex items-center justify-between">
+        <span>GHL Chat Widget Hook</span>
+        <a href="/contact" class="text-accent hover:underline font-medium">Use Contact Form</a>
+      </div>
+    </div>
+  </aside>
+)}
+
+<script>
+  const toggleBtn = document.getElementById('chat-toggle-btn');
+  const chatPanel = document.getElementById('chat-dialog-panel');
+  const closeBtn = document.getElementById('chat-close-btn');
+  const messagesContainer = document.getElementById('chat-messages-container');
+  const chatForm = document.getElementById('chat-input-form');
+  const chatInput = document.getElementById('chat-user-input') as HTMLInputElement;
+  const optButtons = document.querySelectorAll('.chat-opt-btn');
+
+  function openChat() {
+    chatPanel?.classList.remove('hidden');
+    toggleBtn?.setAttribute('aria-expanded', 'true');
+    chatInput?.focus();
+  }
+
+  function closeChat() {
+    chatPanel?.classList.add('hidden');
+    toggleBtn?.setAttribute('aria-expanded', 'false');
+  }
+
+  toggleBtn?.addEventListener('click', () => {
+    const isHidden = chatPanel?.classList.contains('hidden');
+    if (isHidden) openChat();
+    else closeChat();
+  });
+
+  closeBtn?.addEventListener('click', closeChat);
+
+  function appendUserMessage(text: string) {
+    if (!messagesContainer) return;
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'flex justify-end';
+    msgDiv.innerHTML = `
+      <div class="bg-primary text-white p-3 rounded-2xl rounded-tr-none shadow-subtle max-w-[85%] text-xs">
+        <p>${text}</p>
+      </div>
+    `;
+    messagesContainer.appendChild(msgDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function appendAgentReply(text: string, actionUrl?: string) {
+    if (!messagesContainer) return;
+    setTimeout(() => {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'flex items-start gap-2';
+      msgDiv.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-primary text-accent flex items-center justify-center shrink-0 text-xs font-bold">
+          G
+        </div>
+        <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-border shadow-subtle text-content-dark space-y-2 max-w-[85%]">
+          <p>${text}</p>
+          ${actionUrl ? `<a href="${actionUrl}" class="inline-block mt-1 px-3 py-1.5 rounded bg-accent text-white font-semibold text-[11px] hover:bg-accent-hover">Continue to Form</a>` : ''}
+        </div>
+      `;
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 500);
+  }
+
+  optButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const opt = btn.getAttribute('data-option') || '';
+      appendUserMessage(opt);
+      
+      if (opt === 'Request an Appointment') {
+        appendAgentReply('Great! You can submit an appointment request on our dedicated booking page.', '/book-service');
+      } else {
+        appendAgentReply(`Thank you for inquiring about ${opt}. Please provide your name, phone number, and Queens ZIP code, or submit our quick service form.`, '/contact');
+      }
+    });
+  });
+
+  chatForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = chatInput?.value.trim();
+    if (!val) return;
+    appendUserMessage(val);
+    chatInput.value = '';
+    appendAgentReply('Thank you for your message! Our Queens service team has recorded your inquiry. To confirm your service promptly, please submit our online request form.', '/contact');
+  });
+</script>
