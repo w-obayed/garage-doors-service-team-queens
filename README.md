@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Garage Doors Service Team Queens — Website Codebase
 
 A complete, modern, professional, high-converting website built for **Garage Doors Service Team Queens**, a residential garage door company serving Queens, New York.
@@ -133,3 +134,6 @@ In accordance with strict business verification guidelines:
 2. Locate the generated `dist/` directory.
 3. Upload all contents of `dist/` into your server's `public_html` directory (via FTP, File Manager, or Git).
 4. That's it! Because this is a static build, it requires no Node.js runtime on the production server.
+=======
+# garage-doors-service-team-queens
+>>>>>>> 01c4ef7f08ac75372664dc67744feb8abf173e9e

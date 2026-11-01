@@ -4,9 +4,9 @@
   "type": "module",
   "description": "Garage Doors Service Team Queens - High-converting local service website",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "dev": "node init && astro dev",
+    "start": "node init && astro dev",
+    "build": "node init && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
